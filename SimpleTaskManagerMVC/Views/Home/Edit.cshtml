@@ -1,0 +1,60 @@
+﻿@model SimpleTaskManagerMVC.Models.SimpleTask
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit "@Html.DisplayFor(model => model.Name)"</h1>
+
+<hr />
+
+<form asp-action="Edit">  @*not adding validation as you might be just correcting/completing a task*@
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="Id" />
+    <table>
+        <tr>
+            <td width="50%">
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td width="50%">
+                <div class="form-group">
+                    <label asp-for="DueDate" class="control-label"></label>
+                    <input asp-for="DueDate" id="DueDate" class="form-control datepicker-input" type="date" data-date-format="yyyy-mm-dd" onchange="checkDate()" />
+                    <span asp-validation-for="DueDate" class="text-danger"></span>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td width="50%">
+                <div class="form-group form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" asp-for="Completed" /> @Html.DisplayNameFor(model => model.Completed)
+                    </label>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td width="50%">
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </td>
+        </tr>        
+    </table>
+</form>
+
+<div>
+    <a asp-action="Index">Cancel</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+
